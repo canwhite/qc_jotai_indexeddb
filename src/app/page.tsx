@@ -1,7 +1,5 @@
 'use client';
 
-import { useAtom } from 'jotai';
-import { counterAtom } from '../store';
 import { useEffect, useState } from 'react';
 import { useWhyDidYouUpdate } from 'ahooks';
 import { useCounter} from "../store/index";
