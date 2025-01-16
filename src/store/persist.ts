@@ -30,10 +30,10 @@ export const createPersistedAtom = <T>(key: string, initialValue: T) => {
   };
   const derivedAtom = atom(
     (get) => get(baseAtom),//getter: 返回基础atom的值
-    (get, set, update) => {//setter: 更新基础atom的值，并将新值持久化到IndexedDB
+    (get, set, update: T | ((prev: T) => T)) => {
       const nextValue =
         typeof update === 'function'
-          ? (update as (value: T) => T)(get(baseAtom))
+          ? (update as (prev: T) => T)(get(baseAtom))
           : update;
       set(baseAtom, nextValue);
       storage.setItem(key, JSON.stringify(nextValue));

@@ -16,9 +16,9 @@ export const useCounter = () => {
   
   return {
     count: state.count,
-    increment: () => setState(v => ({...v, count: v.count + 1})),
-    decrement: () => setState(v => ({...v, count: v.count - 1})),
-    reset: () => setState(v => ({...v, count: 0}))
+    increment: () => setState((v: CounterState) => ({...v, count: v.count + 1})),
+    decrement: () => setState((v: CounterState) => ({...v, count: v.count - 1})),
+    reset: () => setState((v: CounterState) => ({...v, count: 0}))
   };
 };
 
