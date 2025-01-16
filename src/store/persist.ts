@@ -18,13 +18,15 @@ export const createPersistedAtom = <T>(key: string, initialValue: T) => {
   const storage = createJSONStorage();
   const baseAtom = atom(initialValue);
   baseAtom.onMount = (setValue) => {
-    (async () => {
-      const item = await storage.getItem(key);//在组件挂载时从IndexedDB加载持久化数据
+    async function loadPersistedValue(key: string, initialValue: any) {
+      const item = await storage.getItem(key);
       const persistedValue = item !== null ? JSON.parse(item) : initialValue;
       if (persistedValue !== initialValue) {
         setValue(persistedValue);
       }
-    })();
+    }
+    // 在组件挂载时调用该函数
+    loadPersistedValue(key, initialValue);
   };
   const derivedAtom = atom(
     (get) => get(baseAtom),//getter: 返回基础atom的值
